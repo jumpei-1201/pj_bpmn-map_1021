@@ -1,4 +1,4 @@
-import { Edge, Node, Position as ReactFlowPosition } from 'reactflow';
+import { Edge, Node } from 'reactflow';
 import { BpmnDiagram, BpmnEdge, BpmnNode } from '../types/bpmn';
 import { NodeType } from '../types/enums';
 
@@ -10,7 +10,8 @@ interface ReactFlowResult {
 const toReactFlowNode = (node: BpmnNode): Node => ({
   id: node.id,
   type: node.type,
-  position: node.position as ReactFlowPosition,
+  // map BPMN Position -> React Flow position explicitly to avoid incompatible type imports
+  position: { x: node.position.x, y: node.position.y },
   data: {
     label: node.name,
     subType: node.subType,
